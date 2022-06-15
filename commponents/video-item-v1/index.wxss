@@ -1,0 +1,59 @@
+/* commponents/video-item-v1/index.wxss */
+.item{
+  width: 100%;
+  margin-bottom: 30rpx;
+}
+
+/* 子绝父相 */
+.album{
+  position: relative;
+  border-radius: 12rpx;
+  overflow: hidden;
+  display: flex;
+}
+.album .image{
+  width: 100%;
+}
+.info{
+  position: absolute;
+  padding: 0 10rpx;
+  box-sizing: border-box;
+  width: 100%;
+  bottom: 8rpx;
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+  font-size: 24rpx;
+}
+.info .count{
+  padding-left: 36rpx;
+  position: relative;
+}
+.info .count::before{
+  content: "";
+  position: absolute;
+  left: -2rpx;
+  top: 4rpx;
+  width: 30rpx;
+  height: 24rpx;
+  background-size: cover;
+  background-image: url("https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4624/play_icon.png");
+}
+.content {
+  margin-top: 10rpx;
+  font-size: 28rpx;
+  
+  /* 显示两行 */
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: -moz-box;
+  -moz-line-clamp: 2;
+  -moz-box-orient: vertical;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
+  overflow: hidden;
+}
+
