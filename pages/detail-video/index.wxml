@@ -1,6 +1,10 @@
 <!--pages/detail-video/index.wxml-->
-<wxs src="../../utils/format.wxs" module="format"></wxs>
-<video class="video" loop src="{{mvURlInfo.url}}">
+<wxs src="../../utils/format.wxs"
+     module="format"></wxs>
+<video class="video"
+       loop
+       src="{{mvURlInfo.url}}"
+       referrer-policy="origin">
 </video>
 <view class="mvInfo">
   <view class="mvName">{{mvDetail.name}}</view>
@@ -9,16 +13,8 @@
 </view>
 <view class="RV">
   <text>推荐视频</text>
-  <view wx:for="{{relatedVideos}}" wx:key="id">
-    <view class="RVitem">
-      <view class="left">
-        <image class="RVimage" src="{{item.coverUrl}}"></image>
-        <view class="RVplayCount">{{format.formatCount(item.playTime)}}</view>
-      </view>
-      <view class="right">
-        <view class="RVInfo">{{item.title}}</view>
-        <view class="RVArtistname">{{item.creator[0].userName}}</view>
-      </view>
-    </view>
+  <view wx:for="{{relatedVideos}}"
+        wx:key="id">
+ <related-video-item item="{{item}}"></related-video-item>
   </view>
 </view>

@@ -1,4 +1,4 @@
-// commponents/video-item-v1/index.js
+// commponents/song-item-v1/index.js
 Component({
   /**
    * 组件的属性列表
@@ -8,6 +8,7 @@ Component({
       type: Object,
       value: {}
     }
+
   },
 
   /**

@@ -25,6 +25,7 @@ export function getMVDetail(mvid){
     mvid
   })
 }
+
 /**
  * 获取MV相关视频
  * @param {number} id MV的id 
@@ -33,6 +34,6 @@ export function getRelatedVideo(id){
   return hyRequest.get("/related/allvideo",{
     id
   })
-
 }
+
 

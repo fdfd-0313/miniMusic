@@ -1,4 +1,5 @@
 // pages/detail-video/index.js
+
 import {
   getMVURL,
   getMVDetail,
@@ -21,7 +22,6 @@ Page({
   onLoad(options) {
     const id = options.id
     this.getPageData(id)
-
   },
   //  封装请求方法
   getPageData: function (id) {
