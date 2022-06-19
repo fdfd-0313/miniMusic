@@ -1,4 +1,4 @@
-// commponents/area-header/index.js
+// commponents/song-munu-area/index.js
 Component({
   /**
    * 组件的属性列表
@@ -6,15 +6,11 @@ Component({
   properties: {
     title: {
       type: String,
-      value: "默认标题"
+      value: "默认歌单"
     },
-    rightText: {
-      type: String,
-      value: "更多"
-    },
-    showRight: {
-      type: Boolean,
-      value: true
+    songMemu: {
+      type: Array,
+      value: []
     }
   },
 

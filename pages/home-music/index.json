@@ -2,6 +2,8 @@
   "usingComponents": {
     "van-search": "@vant/weapp/search/index",
     "area-herder": "../../commponents/area-header/index",
-    "song-item-v1": "../../commponents/song-item-v1/index"
+    "song-item-v1": "../../commponents/song-item-v1/index",
+    "song-menu-area": "../../commponents/song-munu-area/index",
+    "ranking-area-item":"../../commponents/ranking-area-item/index"
   }
 }

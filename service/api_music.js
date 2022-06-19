@@ -6,10 +6,20 @@ export function getBanners() {
     type: 2
   })
 }
-export function getRankings(id, limit = 10, offset = 1) {
+export function getRankings(id, limit = 10, offset = 0) {
   return hyRequest.get("/playlist/track/all", {
     id,
     offset,
     limit
   })
+}
+export function getSongMenu(cat = "全部", limit = 6, offset = 0) {
+  return hyRequest.get("/top/playlist", {
+    cat,
+    limit,
+    offset
+  })
+}
+export function getPeakList(){
+  return hyRequest.get("/toplist")
 }

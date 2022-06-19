@@ -3,7 +3,7 @@ function formatCount(count) {
   if (counter > 100000000) {
     return (counter / 100000000).toFixed(1) + '亿'
   } else if (counter > 10000) {
-    return (counter / 10000).toFixed(1) + '亿'
+    return (counter / 10000).toFixed(1) + '万'
   } else {
     return counter + ''
   }
@@ -24,8 +24,15 @@ function formatDuration(duration) {
   return padLeftZero(mimute) + ':' + padLeftZero(second)
 }
 
+function number(index) {
+  for (var i = 0; i < 3; i++) {
+    index = index + 1
+  }
+}
+
 // 使用common.js模块化规范
 module.exports = {
   formatCount: formatCount,
-  formatDuration: formatDuration
+  formatDuration: formatDuration,
+  number:number
 }

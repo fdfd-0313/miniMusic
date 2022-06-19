@@ -1,0 +1,11 @@
+<!--commponents/song-munu-area/index.wxml-->
+<area-header title="{{title}}"></area-header>
+<scroll-view class="memu-list"
+             scroll-x>
+  <block wx:for="{{songMemu}}"
+         wx:key="id">
+    <view class="memu-item">
+    <song-menu-item item="{{item}}"></song-menu-item>
+    </view>
+  </block>
+</scroll-view>
