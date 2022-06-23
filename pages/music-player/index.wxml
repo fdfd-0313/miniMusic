@@ -1,0 +1,63 @@
+<!--pages/music-player/index.wxml-->
+<wxs src="/utils/format.wxs"
+     module="format"></wxs>
+<!-- 1. 背景 -->
+<image class="bg-imag"
+       src="{{currentSong.al.picUrl}}"
+       mode="aspectFill"></image>
+<view class="bg-cover"></view>
+<!-- 导航栏 -->
+<nav-bar bind:click="rebackHomemusic">
+  <view slot="title"
+        class="tab">
+    <view class="{{currentPage === 0 ? 'active': ''}}">歌曲</view>
+    <view class="divider">|</view>
+    <view class="{{currentPage === 1 ? 'active': ''}}">歌词</view>
+  </view>
+</nav-bar>
+<!-- 内容 -->
+<swiper class="content"
+        style="height: {{contentHeight}}px;"
+        bindchange="handleSwiperChange">
+  <swiper-item class="music">
+    <view class="ablum">
+      <image class="image"
+             mode="widthFix"
+             src="{{currentSong.al.picUrl}}"></image>
+    </view>
+    <view class="info">
+      <view class="title">{{currentSong.name}}</view>
+      <view class="subtitle">
+        <view class="singer">{{currentSong.ar[0].name}}</view>
+        <view class="alias">专辑: {{currentSong.alia[0]}}</view>
+      </view>
+    </view>
+    <view class="lyric"
+          wx:if="{{isMusicLyric}}">我是歌词</view>
+    <view class="progress">
+      <slider block-size="{{12}}"
+              value="{{sliderValue}}"
+              bindchanging=""
+              bindchange="handleSliderChange"></slider>
+      <!-- 歌曲进度条 -->
+      <view class="time">
+        <view class="current">{{format.formatDuration(currentTime)}}</view>
+        <view class="duration">{{format.formatDuration(durationTime)}}</view>
+      </view>
+    </view>
+    <!-- 按键操作 -->
+    <view class="operation">
+      <image class="btn btn-mode"
+             src="/assets/images/player/play_order.png"></image>
+      <image class="btn btn-prev"
+             src="/assets/images/player/play_prev.png"></image>
+      <image class="btn btn-pause"
+             src="/assets/images/player/play_pause.png"></image>
+      <image class="btn btn-next"
+             src="/assets/images/player/play_next.png"></image>
+      <image class="btn btn-music"
+             src="/assets/images/player/play_music.png"></image>
+    </view>
+  </swiper-item>
+  <swiper-item>2</swiper-item>
+</swiper>

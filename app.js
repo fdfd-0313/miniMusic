@@ -1,17 +1,18 @@
 // app.js
-import {
-  getLoginCode
-} from './service/api_login'
 App({
   onLaunch: function () {
-    // 让用户默认进行登录
-    this.loginAction()
+    const info = wx.getSystemInfoSync()
+    this.globalData.screenWidth = info.screenWidth
+    this.globalData.screenHeight = info.screenHeight
+    this.globalData.statusBarHeight = info.statusBarHeight
+    const deviceRadio = info.screenHeight / info.screenWidth
+    this.globalData.deviceRadio = deviceRadio
   },
-  loginAction: async function () {
-    // 1. 获取code
-    const code = await getLoginCode()
-    // console.log(code);
-    // 2. 将code发送给服务器
+  globalData: {
+    screenWidth: 0,
+    screenHeight: 0,
+    statusBarHeight: 0,
+    navBarHeight: 44,
+    deviceRadio: 0
   }
-
 })

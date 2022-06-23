@@ -1,12 +1,14 @@
 <!--commponents/related-video-item/index.wxml-->
+<wxs src="../../utils/format.wxs"
+     module="format"></wxs>
 <view class="RVitem">
-      <view class="left">
-        <image class="RVimage"
-               src="{{item.coverUrl}}"></image>
-        <view class="RVplayCount">{{format.formatCount(item.playTime)}}</view>
-      </view>
-      <view class="right">
-        <view class="RVInfo">{{item.title}}</view>
-        <view class="RVArtistname">{{item.creator[0].userName}}</view>
-      </view>
-    </view>
+  <view class="left">
+    <image class="RVimage"
+           src="{{item.coverUrl}}"></image>
+    <view class="RVplayCount">{{format.formatCount(item.playTime)}}</view>
+  </view>
+  <view class="right">
+    <view class="RVInfo">{{item.title}}</view>
+    <view class="RVArtistname">{{item.creator[0].userName}}</view>
+  </view>
+</view>

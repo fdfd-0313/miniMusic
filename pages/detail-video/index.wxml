@@ -12,7 +12,7 @@
   <view class="palyCount">{{format.formatCount(mvDetail.playCount)}}次播放 - {{mvDetail.publishTime}}</view>
 </view>
 <view class="RV">
-  <text>推荐视频</text>
+  <text class="text">推荐视频</text>
   <view wx:for="{{relatedVideos}}"
         wx:key="id">
  <related-video-item item="{{item}}"></related-video-item>

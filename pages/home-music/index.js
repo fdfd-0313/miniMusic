@@ -1,6 +1,6 @@
 // pages/home-music/index.js
 import {
-  rankingStore
+  rankingStore,
 } from '../../store/index'
 import {
   getBanners,
@@ -22,12 +22,8 @@ Page({
     // 榜单数据
     rankings: [],
     PeaKList: []
-
   },
 
-  /**
-   * 生命周期函数
-   */
   onLoad(options) {
     // 获取页面数据
     this.getPageData()
@@ -99,6 +95,20 @@ Page({
       })
     })
 
+  },
+  handleMoreClick() {
+
+    this.navigatetoDetailSongPage(3778678, "热歌榜")
+  },
+  handleRangkingClick(event) {
+    const id = (event.currentTarget.dataset.id);
+    const rankingname = (event.currentTarget.dataset.name)
+    this.navigatetoDetailSongPage(id, rankingname)
+  },
+  navigatetoDetailSongPage(rankingid, rankingname) {
+    wx.navigateTo({
+      url: `/pages/detail-songs/index?rankingid=${rankingid}&rankingname=${rankingname}&type=rank`,
+    })
   },
   getRankingHandler(idx) {
     return (res) => {

@@ -2,19 +2,23 @@
 page {
   padding-top: 225px;
 }
+
 .video {
   position: fixed;
   width: 100%;
   top: 0;
 }
+
 .mvInfo {
   padding-top: 20rpx;
   margin-left: 22rpx;
 }
+
 .mvInfo .mvName {
   font-weight: bold;
   font-size: large;
 }
+
 .mvInfo .mvArtistname {
   font-size: small;
   color: rgb(187, 187, 185);
@@ -25,3 +29,7 @@ page {
   color: rgb(187, 187, 185);
 }
 
+.RV {
+  margin-top: 32rpx;
+  margin-left: 22rpx;
+}

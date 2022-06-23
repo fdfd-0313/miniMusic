@@ -3,7 +3,9 @@
     "pages/home-music/index",
     "pages/home-video/index",
     "pages/detail-video/index",
-    "pages/detail-search/index"
+    "pages/detail-search/index",
+    "pages/detail-songs/index",
+    "pages/music-player/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -12,8 +14,7 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "list": [
-      {
+    "list": [{
         "pagePath": "pages/home-music/index",
         "text": "音乐",
         "iconPath": "assets/images/tabbar/music_normal.png",

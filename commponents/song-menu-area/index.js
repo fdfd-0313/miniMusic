@@ -25,6 +25,12 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    handleMnnuItemClick(event) {
+      const item = event.currentTarget.dataset.item
+      // console.log(item);
+      wx.navigateTo({
+        url: `/pages/detail-songs/index?id=${item.id}&name=${item.name}&&type=menu`,
+      })
+    }
   }
 })

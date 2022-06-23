@@ -1,0 +1,4 @@
+/* pages/detail-songs/index.wxss */
+page {
+  margin: 0 20rpx;
+}

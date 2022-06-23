@@ -1,4 +1,4 @@
-<!--pages/home-music/index.wxml-->
+<!-- pages/home-music/index.wxml -->
 <!-- 1. 搜索框 -->
 <van-search disabled
             background="#fafafa"
@@ -26,7 +26,8 @@
 <!-- 3.推荐歌曲 -->
 <view class="recommend-song"
       wx:if="{{recommendSongs.length>0}}">
-  <area-herder title="推荐歌曲"></area-herder>
+  <area-herder title="推荐歌曲"
+               bind:click="handleMoreClick"></area-herder>
   <view class="song-list">
     <block wx:for="{{recommendSongs}}"
            wx:key="id">
@@ -50,9 +51,26 @@
 <area-herder title="巅峰榜"
              showRight="{{false}}"></area-herder>
 <view class="rangking-list">
-  <block wx:for="{{PeaKList}}"
-         wx:key="index">
-    <ranking-area-item item="{{item}}"
-                       rankings="{{rankings}}"></ranking-area-item>
-  </block>
+  <!-- 飙升榜 -->
+  <ranking-area-item PeaKList="{{PeaKList[0]}}"
+                     rankings="{{rankings[0]}}"
+                     bindtap="handleRangkingClick"
+                     data-id="{{19723756}}"
+                     data-name="{{PeaKList[0].name}}">
+  </ranking-area-item>
+  <!-- 新歌榜 -->
+  <ranking-area-item PeaKList="{{PeaKList[1]}}"
+                     rankings="{{rankings[1]}}"
+                     bindtap="handleRangkingClick"
+                     data-id="{{3779629}}"
+                     data-name="{{PeaKList[1].name}}">
+  </ranking-area-item>
+  <!-- 原创榜 -->
+  <ranking-area-item PeaKList="{{PeaKList[2]}}"
+                     rankings="{{rankings[2]}}"
+                     bindtap="handleRangkingClick"
+                     data-id="{{2884035}}"
+                     data-name="{{PeaKList[2].name}}">
+  </ranking-area-item>
+
 </view>
