@@ -1,7 +1,11 @@
 // pages/music-player/index.js
 import {
-  getSongDetail
+  getSongDetail,
+  getSongLyric
 } from "../../service/api_player"
+import {
+  parseLyric
+} from "../../utils/parse-lyric"
 import {
   audioContext
 } from "../../store/index"
@@ -14,10 +18,14 @@ Page({
     currentTime: 0,
     sliderValue: 0,
     isSliderChanging: false,
+    lyricInfos: [],
+    currentLyricIndex: 0,
+    currentLyricText: "",
 
     currentPage: 0,
     contentHeight: 0,
     isMusicLyric: true,
+    lyricScrollTop: 0
   },
 
   onLoad(options) {
@@ -31,7 +39,7 @@ Page({
     const statusBarHeight = globalData.statusBarHeight
     const navBarHeight = globalData.navBarHeight
     const contentHeight = screenHeight - statusBarHeight - navBarHeight
-    const deviceRadio = globalData.deviceRadio
+    const deviceRadio = globalData.deviceRadio //比例
     this.setData({
       contentHeight,
       isMusicLyric: deviceRadio >= 2
@@ -40,10 +48,9 @@ Page({
     audioContext.stop()
     audioContext.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`
 
-
     // 5.audioContext的事件监听
     this.setupAudioContextListener()
-    audioContext.pause()
+
   },
   // =======   网络请求   =======  
   getPageData(id) {
@@ -51,6 +58,14 @@ Page({
       this.setData({
         currentSong: res.songs[0],
         durationTime: res.songs[0].dt
+      })
+    })
+    getSongLyric(id).then(res => {
+      const lyricString = res.lrc.lyric
+      const lyrics = parseLyric(lyricString)
+      // console.log(lyrics);
+      this.setData({
+        lyricInfos: lyrics
       })
     })
   },
@@ -61,13 +76,32 @@ Page({
       audioContext.play()
     })
     audioContext.onTimeUpdate(() => {
+      // 1. 获取当前时间
       const currentTime = audioContext.currentTime * 1000
+      // 2. 根据当前时间修改currentTime/sliderValue
       if (!this.data.isSliderChanging) {
         const sliderValue = currentTime / this.data.durationTime * 100
         this.setData({
           sliderValue,
           currentTime
         })
+      }
+      // 3. 根据当前时间去查找播放的歌词
+      for (let i = 0; i < this.data.lyricInfos.length; i++) {
+        const lyricInfo = this.data.lyricInfos[i]
+        if (currentTime < lyricInfo.time) {
+          const currentIndex = i - 1
+          if (this.data.currentLyricIndex !== currentIndex) {
+            const currentLyricInfo = this.data.lyricInfos[currentIndex]
+            // console.log(currentLyricInfo.text);
+            this.setData({
+              currentLyricText: currentLyricInfo.text,
+              currentLyricIndex: currentIndex,
+              lyricScrollTop: currentIndex * 35
+            })
+          }
+          break
+        }
       }
     })
   },
