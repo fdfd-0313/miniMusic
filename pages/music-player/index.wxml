@@ -48,11 +48,13 @@
     <!-- 按键操作 -->
     <view class="operation">
       <image class="btn btn-mode"
-             src="/assets/images/player/play_order.png"></image>
+             src="/assets/images/player/play_{{playModeName}}.png"
+             bindtap="handleModeBtnClick"></image>
       <image class="btn btn-prev"
              src="/assets/images/player/play_prev.png"></image>
       <image class="btn btn-pause"
-             src="/assets/images/player/play_pause.png"></image>
+             src="/assets/images/player/play_{{playingName}}.png"
+             bindtap="handlePlayBtnClick"></image>
       <image class="btn btn-next"
              src="/assets/images/player/play_next.png"></image>
       <image class="btn btn-music"

@@ -1,4 +1,4 @@
-// export * from './ranking-stor'
+// export * from './ranking-store'
 // export * from './player-store'
 
 import {
@@ -8,11 +8,12 @@ import {
 } from './ranking-store'
 import {
   audioContext,
-  plyerStore
+  playerStore
 } from './player-store'
 export {
   rankingStore,
   rankingNum,
   rankingMap,
-  audioContext
+  audioContext,
+  playerStore
 }
