@@ -44,13 +44,6 @@
           "scene": null
         },
         {
-          "name": "music-player",
-          "pathName": "pages/music-player/index",
-          "query": "id=1901371647",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
           "name": "player",
           "pathName": "pages/music-player/index",
           "query": "id=1842025914",

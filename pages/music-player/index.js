@@ -34,7 +34,14 @@ Page({
 
   onLoad(options) {
     // 1. 获取传入的id
-    // const id = options.id
+    const id = options.id
+    this.setData({
+      id
+    })
+    // 单独测试播放页的时候解开
+    // playerStore.dispatch("playMusicWithSongIdAction", {
+    //   id
+    // })
 
     // 2. 根据id获取歌曲
     // this.getPageData(id)
@@ -51,11 +58,6 @@ Page({
       contentHeight,
       isMusicLyric: deviceRadio >= 2
     })
-    // 4. 创建播放器
-
-
-    // 5.audioContext的事件监听
-    // this.setupAudioContextListener()
 
   },
 
@@ -103,7 +105,13 @@ Page({
     playerStore.setState("playModeIndex", playModeIndex)
   },
   handlePlayBtnClick() {
-    playerStore.dispatch("changeMusicPlayStatusAction")
+    playerStore.dispatch("changeMusicPlayStatusAction", !this.data.isPlaying)
+  },
+  handlePrevBtnClick() {
+    playerStore.dispatch("changeNewMusicAction", false)
+  },
+  handleNextBtnClick() {
+    playerStore.dispatch("changeNewMusicAction")
   },
 
   setupPlayerStoreListener: function () {

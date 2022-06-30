@@ -10,28 +10,52 @@ import {
   parseLyric
 } from "../utils/parse-lyric"
 
-const audioContext = wx.createInnerAudioContext()
+// const audioContext = wx.createInnerAudioContext()
+const audioContext = wx.getBackgroundAudioManager()
+
 
 const playerStore = new HYEventStore({
   state: {
+    isFirstPlay: true,
     id: 0,
     currentSong: {},
     durationTime: 0,
-    currentTime: 0,
     lyricInfos: [],
+
+    currentTime: 0,
     currentLyricIndex: 0,
     currentLyricText: "",
+
+    isPlaying: true,
+
     playModeIndex: 0, // 0: 循环播放 1: 单曲循环 2: 随机播放
-    isPlaying:false
+    playListSongs: [],
+    playListIndex: 0
+
   },
   actions: {
     playMusicWithSongIdAction(ctx, {
-      id
+      id,
+      idRefresh = false
     }) {
+      if (ctx.id == id && !idRefresh) {
+        this.dispatch("changeMusicPlayStatusAction", true)
+        return
+      }
+      ctx.id = id
+      // 0. 修改播放状态
+      ctx.isPlaying = true
+      ctx.durationTime = 0
+      ctx.currentSong = {}
+      ctx.lyricInfos = []
+      ctx.currentTime = 0
+      ctx.currentIndex = 0
+      ctx.currentLyricText = ""
       // 1. 根据id发送网络请求
       getSongDetail(id).then(res => {
         ctx.currentSong = res.songs[0]
         ctx.durationTime = res.songs[0].dt
+        audioContext.title = res.songs[0].name
       })
       // 请求歌词数据
       getSongLyric(id).then(res => {
@@ -42,8 +66,13 @@ const playerStore = new HYEventStore({
       // 2. 播放对应id的歌曲
       audioContext.stop()
       audioContext.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`
+      audioContext.title = id
       // 3. 监听audioContext一些事件
-      this.dispatch("setupAudioContextListenerAction")
+      if (ctx.isFirstPlay) {
+        this.dispatch("setupAudioContextListenerAction")
+        ctx.isFirstPlay = false
+      }
+
     },
     setupAudioContextListenerAction(ctx) {
       // 1.监听歌曲可以播放
@@ -72,10 +101,43 @@ const playerStore = new HYEventStore({
           }
         }
       })
+      // 3. 监听歌曲播放完成
+      audioContext.onEnded(() => {
+        this.dispatch("changeNewMusicAction")
+      })
     },
-    changeMusicPlayStatusAction(ctx) {
-      ctx.isPlaying = !ctx.isPlaying
+    changeMusicPlayStatusAction(ctx, isPlaying = true) {
+      ctx.isPlaying = isPlaying
       ctx.isPlaying ? audioContext.play() : audioContext.pause()
+    },
+    changeNewMusicAction(ctx, isNext = true) {
+      // 1. 获取当前索引
+      let index = ctx.playListIndex
+      // 2. 根据不同的播放模式，获取下一首歌的索引
+      switch (ctx.playModeIndex) {
+        case 0: //顺序播放
+          index = isNext ? index + 1 : index - 1
+          if (index === -1) index = ctx.playModeIndex.length - 1
+          if (index === ctx.playListSongs.length) index = 0
+          break
+        case 1: // 单曲循环
+          break
+        case 2: // 随机播放
+          index = Math.floor(Math.random() * ctx.playListSongs.length)
+      }
+      // 3. 获取歌曲
+      let currentSong = ctx.playListSongs[index]
+      if (!currentSong) {
+        currentSong = ctx.currentSong
+      } else {
+        // 记录最新的索引
+        ctx.playListIndex = index
+      }
+      // 4. 播放新的歌曲
+      this.dispatch("playMusicWithSongIdAction", {
+        id: currentSong.id,
+        idRefresh: true
+      })
     }
   }
 })
